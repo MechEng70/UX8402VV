@@ -8,3 +8,14 @@ Intel® Iris Xe Graphics
 
 Step 1 - Removing all current NVidia drivers (reason is that I have tried multiple things so let's start from the beginning.
 - https://linuxcapable.com/how-to-install-nvidia-drivers-on-fedora-linux/
+- From this page the .run method was used to install the nvidia drivers.
+
+Windows information on the graphics cards:
+
+
+
+Linux reporting of the graphics cards
+
+
+Step 2 - configuring X
+
