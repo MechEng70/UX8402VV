@@ -21,4 +21,5 @@ Step 1 - Removing all current NVidia drivers (reason is that I have tried multip
 Step 2 - configuring X
 - While at the command prompt in ternimal and before launching gui, let's configure X in order to get a xorg.conf file that can be manipulated.
 - sudo X -configure Then sudo cp /root/xorg.conf.new /etc/X11/xorg.conf
+- When the system reboots - it may take some time... maybe... wait...........
 
