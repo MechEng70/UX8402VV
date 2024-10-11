@@ -61,6 +61,18 @@ Secondary
 	Kernel modules: i915, xe
 </pre>
 
+<pre>sudo lspci -k | grep -A 2 -E &quot;(VGA|3D)&quot; 
+0000:00:02.0 <font color="#C01C28"><b>VGA</b></font> compatible controller: Intel Corporation Raptor Lake-P [Iris Xe Graphics] (rev 04)
+	DeviceName: Second <font color="#C01C28"><b>VGA</b></font>
+	Subsystem: ASUSTeK Computer Inc. Device 1723
+	Kernel driver in use: i915
+<font color="#2AA1B3">--</font>
+0000:01:00.0 <font color="#C01C28"><b>VGA</b></font> compatible controller: NVIDIA Corporation AD107M [GeForce RTX 4060 Max-Q / Mobile] (rev a1)
+	DeviceName: <font color="#C01C28"><b>VGA</b></font>
+	Subsystem: ASUSTeK Computer Inc. Device 1723
+	Kernel driver in use: nouveau
+</pre>
+
 <h3>XORG.CONF</h3>
 <pre>
 Section "ServerLayout"
