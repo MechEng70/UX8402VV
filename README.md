@@ -61,6 +61,154 @@ Secondary
 	Kernel modules: i915, xe
 </pre>
 
+<h3>XORG.CONF</h3>
+<pre>
+Section "ServerLayout"
+	Identifier     "X.org Configured"
+	Screen      0  "Screen0" 0 0
+	Screen      1  "Screen1" RightOf "Screen0"
+	InputDevice    "Mouse0" "CorePointer"
+	InputDevice    "Keyboard0" "CoreKeyboard"
+EndSection
+
+Section "Files"
+	ModulePath   "/usr/lib64/xorg/modules"
+	FontPath     "catalogue:/etc/X11/fontpath.d"
+	FontPath     "built-ins"
+EndSection
+
+Section "Module"
+	Load  "glx"
+EndSection
+
+Section "InputDevice"
+	Identifier  "Keyboard0"
+	Driver      "kbd"
+EndSection
+
+Section "InputDevice"
+	Identifier  "Mouse0"
+	Driver      "mouse"
+	Option	    "Protocol" "auto"
+	Option	    "Device" "/dev/input/mice"
+	Option	    "ZAxisMapping" "4 5 6 7"
+EndSection
+
+Section "Monitor"
+	Identifier   "Monitor0"
+	VendorName   "Monitor Vendor"
+	ModelName    "Monitor Model"
+EndSection
+
+Section "Monitor"
+	Identifier   "Monitor1"
+	VendorName   "Monitor Vendor"
+	ModelName    "Monitor Model"
+EndSection
+
+Section "Device"
+        ### Available Driver options are:-
+        ### Values: <i>: integer, <f>: float, <bool>: "True"/"False",
+        ### <string>: "String", <freq>: "<f> Hz/kHz/MHz",
+        ### <percent>: "<f>%"
+        ### [arg]: arg optional
+        #Option     "SWcursor"           	# [<bool>]
+        #Option     "kmsdev"             	# <str>
+        #Option     "ShadowFB"           	# [<bool>]
+        #Option     "AccelMethod"        	# <str>
+        #Option     "PageFlip"           	# [<bool>]
+        #Option     "ZaphodHeads"        	# <str>
+        #Option     "DoubleShadow"       	# [<bool>]
+        #Option     "Atomic"             	# [<bool>]
+	Identifier  "Card0"
+	Driver      "modesetting"
+	BusID       "PCI:0:2:0"
+EndSection
+
+Section "Device"
+        ### Available Driver options are:-
+        ### Values: <i>: integer, <f>: float, <bool>: "True"/"False",
+        ### <string>: "String", <freq>: "<f> Hz/kHz/MHz",
+        ### <percent>: "<f>%"
+        ### [arg]: arg optional
+        #Option     "SWcursor"           	# [<bool>]
+        #Option     "kmsdev"             	# <str>
+        #Option     "ShadowFB"           	# [<bool>]
+        #Option     "AccelMethod"        	# <str>
+        #Option     "PageFlip"           	# [<bool>]
+        #Option     "ZaphodHeads"        	# <str>
+        #Option     "DoubleShadow"       	# [<bool>]
+        #Option     "Atomic"             	# [<bool>]
+	Identifier  "Card1"
+	Driver      "modesetting"
+	BusID       "PCI:1:0:0"
+EndSection
+
+Section "Screen"
+	Identifier "Screen0"
+	Device     "Card0"
+	Monitor    "Monitor0"
+	SubSection "Display"
+		Viewport   0 0
+		Depth     1
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     4
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     8
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     15
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     16
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     24
+	EndSubSection
+EndSection
+
+Section "Screen"
+	Identifier "Screen1"
+	Device     "Card1"
+	Monitor    "Monitor1"
+	SubSection "Display"
+		Viewport   0 0
+		Depth     1
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     4
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     8
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     15
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     16
+	EndSubSection
+	SubSection "Display"
+		Viewport   0 0
+		Depth     24
+	EndSubSection
+EndSection
+
+ 
+</pre>
+
+
+
 Step 1 - Removing all current NVidia drivers (reason is that I have tried multiple things so let's start from the beginning.
 - https://linuxcapable.com/how-to-install-nvidia-drivers-on-fedora-linux/
 - From this page the .run method was used to install the nvidia drivers.
