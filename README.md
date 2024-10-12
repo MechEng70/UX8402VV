@@ -223,11 +223,51 @@ EndSection
 
 Step 1 - Removing all current NVidia drivers (reason is that I have tried multiple things so let's start from the beginning.
 - https://linuxcapable.com/how-to-install-nvidia-drivers-on-fedora-linux/
-- From this page the .run method was used to install the nvidia drivers.
+- From this page use the RPM Method.
+- Add the following commands from the .run method:
+  <pre>echo -e "blacklist nouveau\noptions nouveau modeset=0" | sudo tee /etc/modprobe.d/blacklist-nouveau.conf</pre>
+  And then
+  <pre>sudo dracut --force</pre>
+  <pre>sudo reboot</pre>
+
+  After reboot, when you log in, right before you log in with your password, change the GNOME desktop (gear icon) from GNOME to GNOME Xorg.
+
+  Success: <pre>
+nvidia-smi  
+Sat Oct 12 07:01:01 2024       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 560.35.03              Driver Version: 560.35.03      CUDA Version: 12.6     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA GeForce RTX 4060 ...    Off |   00000000:01:00.0 Off |                  N/A |
+| N/A   40C    P3             10W /   35W |      15MiB /   8188MiB |      8%      Default |
+|                                         |                        |                  N/A |
++-----------------------------------------+------------------------+----------------------+                                                                                        
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI        PID   Type   Process name                              GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|    0   N/A  N/A      2441      G   /usr/libexec/Xorg                               4MiB |
++-----------------------------------------------------------------------------------------+
+</pre>
+
+<pre>sudo lspci -k | grep -A 2 -E &quot;(VGA|3D)&quot;                                               
+0000:00:02.0 <font color="#C01C28"><b>VGA</b></font> compatible controller: Intel Corporation Raptor Lake-P [Iris Xe Graphics] (rev 04)
+	DeviceName: Second <font color="#C01C28"><b>VGA</b></font>
+	Subsystem: ASUSTeK Computer Inc. Device 1723
+	Kernel driver in use: i915
+<font color="#2AA1B3">--</font>
+0000:01:00.0 <font color="#C01C28"><b>VGA</b></font> compatible controller: NVIDIA Corporation AD107M [GeForce RTX 4060 Max-Q / Mobile] (rev a1)
+	DeviceName: <font color="#C01C28"><b>VGA</b></font>
+	Subsystem: ASUSTeK Computer Inc. Device 1723
+	Kernel driver in use: nvidia
+</pre>
+  
 
 
-Step 2 - configuring X
-- While at the command prompt in ternimal and before launching gui, let's configure X in order to get a xorg.conf file that can be manipulated.
-- sudo X -configure Then sudo cp /root/xorg.conf.new /etc/X11/xorg.conf
-- When the system reboots - it may take some time... maybe... wait...........
+
 
